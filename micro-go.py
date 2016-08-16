@@ -7,6 +7,8 @@ ONE_SECOND_MS = 1000
 
 gameState = STATE_INTRO;
 introMusicPlayed = False;
+initialPromptShown = False;
+isPlayerIdle = True;
 
 # Palette town intro music
 palletTownNotes =  ["D4:2", "C", "B3", "A", "G4", "E", "F#", "E",
@@ -27,6 +29,27 @@ pokeballFrame2 = Image("06660:"
              "06660")
 
 pokeballFrames = [pokeballFrame1, pokeballFrame2]
+
+# Idle main animation
+idleFrame1 = Image("00000:"
+             "00000:"
+             "90000:"
+             "00000:"
+             "00000")
+
+idleFrame2 = Image("00000:"
+             "00000:"
+             "90900:"
+             "00000:"
+             "00000")
+
+idleFrame3 = Image("00000:"
+             "00000:"
+             "90909:"
+             "00000:"
+             "00000")
+
+idleFrames = [idleFrame1, idleFrame2, idleFrame3]
 
 # Animate pokeball on startup
 for i in range(2):
@@ -50,4 +73,9 @@ while True:
             display.show(Image.ARROW_W)
             sleep(ONE_SECOND_MS / 2)
     elif (gameState == STATE_MAIN):
-        display.scroll('Todo! :)')
+
+        if (initialPromptShown == False):
+            initialPromptShown = True
+            display.scroll('Lets get walking!')
+        elif (isPlayerIdle == True):
+            display.show(idleFrames)
